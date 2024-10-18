@@ -9,9 +9,10 @@
 <body>
     <div class="container">
         <h1>Rule Engine</h1>
+
         <form id="create-rule-form" class="form-section">
             <label for="rule">Create Rule:</label>
-            <input type="text" id="rule" name="rule" required>
+            <input type="text" id="rule" name="rule" placeholder="Enter your rule" required>
             <button type="submit">Create Rule</button>
         </form>
 
@@ -19,19 +20,53 @@
             <div class="form-row">
                 <div class="form-col">
                     <label for="ast">AST (JSON format):</label>
-                    <textarea id="ast" name="ast" required></textarea>
+                    <textarea id="ast" name="ast" placeholder='{"key": "value"}' required></textarea>
                 </div>
                 <div class="form-col">
                     <label for="data">Data (JSON format):</label>
-                    <textarea id="data" name="data" required></textarea>
+                    <textarea id="data" name="data" placeholder='{"key": "value"}' required></textarea>
                 </div>
             </div>
             <button type="submit">Evaluate Rule</button>
         </form>
 
-        <div id="result" class="result-section"></div>
+        <div id="result" class="result-section" style="display: none;"></div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#create-rule-form').on('submit', function (e) {
+                e.preventDefault();
+                const rule = $('#rule').val();
+                alert(`Rule "${rule}" created!`); // You can replace this with your logic
+            });
+
+            $('#evaluate-rule-form').on('submit', function (e) {
+                e.preventDefault();
+                const ast = $('#ast').val();
+                const data = $('#data').val();
+
+                // Simulate evaluation (replace with your logic)
+                const isValid = Math.random() > 0.5;
+                const resultDiv = $('#result');
+
+                if (isValid) {
+                    resultDiv
+                        .text('Rule Evaluation: SUCCESS')
+                        .removeClass('result-false')
+                        .addClass('result-true')
+                        .show();
+                } else {
+                    resultDiv
+                        .text('Rule Evaluation: FAILED')
+                        .removeClass('result-true')
+                        .addClass('result-false')
+                        .show();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
